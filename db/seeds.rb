@@ -12,4 +12,7 @@ users = User.create([{username: 'test1', email:'test1@test.com', password:'12345
 
 tasks = Task.create([{item:'this is good', user_id: 2},
   {item:'this is no good', user_id: 2},
-  {item:'shall we go to shopping?', user_id: 2},])
+  {item:'shall we go to shopping?', user_id: 2},
+  {item:'shall we go to shopping?', user_id: 3},
+  {item:'shall we go to shopping, again?', user_id: 3},
+  {item:'shall we go to shopping, again, again?', user_id: 3},])
