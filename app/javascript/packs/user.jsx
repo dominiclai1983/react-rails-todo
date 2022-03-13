@@ -1,14 +1,26 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
 import NavBar from './component/navbar';
+import { safeCredentials, handleErrors } from './utils/fetchHelper';
 import $ from 'jquery';
 
 import './todo.scss';
 
-export const Todo = () => {
+function User(){
   return (
     <>
       <NavBar />
+      <div className="container">
+        <div className="row">
+          <div className="col-3">
+            left side
+          </div>
+          <div className="col-9">
+
+          </div>
+        </div>
+      </div>
+      {/* 
       <h3>Welcome!</h3>
       <div className="container">
         <div className="row">
@@ -23,13 +35,15 @@ export const Todo = () => {
           </div>
         </div>
       </div>
+      */}
+
     </>
   )
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
-    <Todo />,
+    <User />,
     document.body.appendChild(document.createElement('div')),
   )
 })

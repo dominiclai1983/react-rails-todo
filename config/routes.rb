@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   root to: 'static_pages#index'
 
   get 'login'     => 'static_pages#login'
-  get 'todo'      => 'static_pages#todo'
+  get 'user'      => 'static_pages#user'
   get 'signup'    => 'static_pages#signup'
 
   namespace :api do
