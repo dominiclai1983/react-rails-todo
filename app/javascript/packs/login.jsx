@@ -13,26 +13,6 @@ function Login(){
   }
 
   const handleLogin = (login) => {
-    /*
-    var request = {
-      type: 'POST',
-      url: 'api/sessions',
-      headers: {
-        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-      },
-      data:{
-        user: login
-      },
-      success: function (response) {
-        console.log(response)
-      },
-      error: function (request, errorMsg) {
-        console.log(request, errorMsg);
-        console.log("error");
-      }
-    }
-    $.ajax(request);
-    */
 
     fetch('api/sessions', safeCredentials({
       method: 'POST',

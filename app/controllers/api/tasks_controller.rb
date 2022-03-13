@@ -13,6 +13,30 @@ module Api
       end
     end
 
+    def index_by_current_user_with_active
+      token = cookies.signed[:todolist_session_token]
+      session = Session.find_by(token: token)
+
+      if session
+        @tasks = session.user.tasks.where(completed: false)
+        render 'api/tasks/index' # can be omitted
+      else
+        render json: { tasks: [] }
+      end
+    end
+
+    def index_by_current_user_with_completed
+      token = cookies.signed[:todolist_session_token]
+      session = Session.find_by(token: token)
+
+      if session
+        @tasks = session.user.tasks.where(completed: true)
+        render 'api/tasks/index' # can be omitted
+      else
+        render json: { tasks: [] }
+      end
+    end
+
     def create
       token = cookies.signed[:todolist_session_token]
       session = Session.find_by(token: token)

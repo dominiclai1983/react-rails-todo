@@ -1,5 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import ReactDOM from 'react-dom';
+import Input from './user/input';
+import LeftNav from './user/leftnav';
 import axios from 'axios';
 import NavBar from './component/navbar';
 
@@ -27,11 +29,36 @@ export default function User(){
     });
   }
 
-  const loadToDo = (username) => {
+  const loadAllToDo = (username) => {
     axios.get('api/users/${username}/tasks')
     .then(response => {
       setTodo(response.data);
       console.log(todo);
+    })
+  }
+
+  const loadActiveToDo = (username) => {
+    axios.get('api/users/${username}/active')
+    .then(response => {
+      setTodo(response.data);
+      console.log(todo);
+    })
+  }
+
+  const loadCompletedToDo = (username) => {
+    axios.get('api/users/${username}/completed')
+    .then(response => {
+      setTodo(response.data);
+      console.log(todo);
+    })
+  }
+
+  const handLogOut = () => {
+    axios.delete('api/sessions')
+    .then(response =>{
+      if(response.data.success){
+        document.location.href="/";
+      }
     })
   }
 
@@ -40,8 +67,10 @@ export default function User(){
   },[]);
 
   useEffect(() => {
-    loadToDo(username);
+    loadAllToDo(username);
   },[username]);
+
+   
 
   return (
     <>
@@ -50,11 +79,7 @@ export default function User(){
         <div className="row">
           {/*Lefthand side*/}
           <div className="col-3 mt-4 text-right">
-            Wellcome!
-            {` ${username}`}
-            <p>Your To Do</p>
-            <p>Your Account</p>
-            <p>Button Login At the btm</p>
+            <LeftNav username={username} onLogOut={handLogOut} />
           </div>
 
 
@@ -69,10 +94,10 @@ export default function User(){
             </div>
               <div className="row">
                 <div className="col-12">
-                  Input Field
+                  <Input />
                 </div>
-                <div className="col-12">
-                  All / Active / Completed
+                <div className="col-12 border-bottom">
+                &emsp;<a href={null} onClick={loadAllToDo}>All</a>&emsp;|&emsp;<a href={null} onClick={loadActiveToDo}>Active</a>&emsp;|&emsp;<a href={null} onClick={loadCompletedToDo}>Completed</a>
                 </div>
                 <div className="col-12">
                   ToDo List

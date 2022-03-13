@@ -16,26 +16,6 @@ function Signup(){
 
   const handleSubmit = () => {
 
-  /*
-    var request = {
-      type: 'POST', 
-      url: 'api/users',
-      headers: {
-        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-      },
-      data: {
-        user: newUser
-      },
-      success: function (response) {
-        console.log(response);
-      },
-      error: function (request, errorMsg) {
-        console.log(request, errorMsg);
-      }
-    }
-    $.ajax(request);
-  */
-
     fetch('api/users', safeCredentials({
       method: 'POST',
       body: JSON.stringify({

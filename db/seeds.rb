@@ -20,4 +20,6 @@ tasks = Task.create([{item:'this is good', user_id: 2},
   {item:'shall we go to shopping?', user_id: 6},
   {item:'shall we go to shopping?', user_id: 6},
   {item:'shall we go to shopping, again?', user_id: 6},
-  {item:'shall we go to shopping, again, again?', user_id: 6},])
+  {item:'shall we go to shopping, again, again?', user_id: 6},
+  {item:'stop shopping please?', user_id: 6, completed: true},
+  {item:'stop shopping please, again?', user_id: 6, completed: true},])

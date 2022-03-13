@@ -8,3 +8,13 @@
   margin-left: 45px;
 }
 
+a{
+  color: inherit;
+}
+
+a {
+	&:hover {
+		text-decoration: none;
+	}
+}
+
