@@ -4,14 +4,14 @@ class StaticPagesController < ApplicationController
   end
 
   def login
-    redirect_to '/'
-  end
-
-  def todo
-    render 'todo'
+    redirect_to '/user'
   end
 
   def user
-    redirect_to '/user'
+    render 'user'
+  end
+
+  def signup
+    redirect_to '/login'
   end
 end
