@@ -2,8 +2,6 @@ import React, {useEffect, useState} from 'react'
 import axios from 'axios';
 import ReactDOM from 'react-dom';
 import NavBar from './component/navbar';
-import {json, checkStatus, handleErrors, safeCredentials} from './utils/fetchHelper';
-import $ from 'jquery';
 
 import './user.scss';
 
@@ -21,11 +19,21 @@ export default function User(){
     });
   }
 
-  
+  const loadToDo = (username) => {
+    axios.get('api/users/${username}/tasks')
+    .then(response => {
+      setTodo(response.data);
+      console.log(todo);
+    })
+  }
 
   useEffect(() => {
     checkLogin();
   },[]);
+
+  useEffect(() => {
+    loadToDo(username);
+  },[username]);
 
   return (
     <>
