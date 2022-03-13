@@ -90,14 +90,14 @@ export default function User(){
           {/* place holder */}
             <div className="container">
             <div className="d-flex">
-            <h3>Welcome!</h3><h3 className="right">{time.toISOString().slice(0,10)}</h3>
+            <h3>Today is {time.toISOString().slice(0,10)}</h3>
             </div>
               <div className="row">
                 <div className="col-12">
                   <Input />
                 </div>
                 <div className="col-12 border-bottom">
-                &emsp;<a href={null} onClick={loadAllToDo}>All</a>&emsp;|&emsp;<a href={null} onClick={loadActiveToDo}>Active</a>&emsp;|&emsp;<a href={null} onClick={loadCompletedToDo}>Completed</a>
+                &emsp;<a href={null} className="kinda-link" onClick={loadAllToDo}>All</a>&emsp;|&emsp;<a href={null} className="kinda-link" onClick={loadActiveToDo}>Active</a>&emsp;|&emsp;<a href={null} className="kinda-link" onClick={loadCompletedToDo}>Completed</a>
                 </div>
                 <div className="col-12">
                   ToDo List

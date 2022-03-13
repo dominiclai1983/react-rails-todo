@@ -8,13 +8,21 @@
   margin-left: 45px;
 }
 
-a{
-  color: inherit;
-}
-
 a {
 	&:hover {
 		text-decoration: none;
 	}
 }
 
+a.kinda-link {
+
+  color: #6c757d
+  ;
+
+	&:hover {
+		cursor: pointer;
+    text-decoration: none;
+    color: #6c757d
+    ;
+	}
+}
