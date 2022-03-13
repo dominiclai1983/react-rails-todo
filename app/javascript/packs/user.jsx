@@ -1,21 +1,29 @@
 import React, {useEffect, useState} from 'react'
-import axios from 'axios';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 import NavBar from './component/navbar';
 
 import './user.scss';
 
 export default function User(){
 
-  let [todo, setTodo] = useState([]);
-  let [username, setUsername] = useState("");
-  let [authenticated, setAuth] = useState(null);
+  const [todo, setTodo] = useState([]);
+  const [username, setUsername] = useState("");
+  const [authenticated, setAuth] = useState(null);
+
+  const time = new Date();
 
   const checkLogin = () => {
     axios.get('api/authenticated')
     .then(response => {
+      console.log(response.data.authenticated);
       setUsername(response.data.username);
       setAuth(response.data.authenticated);
+      /*
+      if(!response.data.authenticated){
+        window.location.href = "/";
+      }
+      */
     });
   }
 
@@ -40,16 +48,25 @@ export default function User(){
       <NavBar />
       <div className="container">
         <div className="row">
-          <div className="col-3">
+          {/*Lefthand side*/}
+          <div className="col-3 mt-4 text-right">
             Wellcome!
             {` ${username}`}
+            <p>Your To Do</p>
+            <p>Your Account</p>
+            <p>Button Login At the btm</p>
           </div>
-          <div className="col-9">
 
-          <h3>Welcome!</h3>
+
+          <div className="col-9">
+          <div className="right-side border">
+
 
           {/* place holder */}
             <div className="container">
+            <div className="d-flex">
+            <h3>Welcome!</h3><h3 className="right">{time.toISOString().slice(0,10)}</h3>
+            </div>
               <div className="row">
                 <div className="col-12">
                   Input Field
@@ -62,7 +79,7 @@ export default function User(){
                 </div>
               </div>
             </div>
-
+          </div>
 
           </div>
         </div>
