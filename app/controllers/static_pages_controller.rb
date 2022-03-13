@@ -6,4 +6,8 @@ class StaticPagesController < ApplicationController
   def login
     redirect_to '/'
   end
+
+  def todo
+    render 'todo'
+  end
 end

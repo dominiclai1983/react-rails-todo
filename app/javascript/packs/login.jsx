@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import Layout from './layout'
+import Layout from './component/layout'
 
 const Login = ({onLogin}) => {
 
@@ -14,7 +14,7 @@ const Login = ({onLogin}) => {
   return (
     <>
       <Layout>
-        <h6>Login To Your Account</h6>
+        <h3>Login To Your Account</h3>
           <form onSubmit={() => {onLogin(login)}}>
             <div className="form-group">
               <label htmlFor="exampleInputEmail">Username</label>

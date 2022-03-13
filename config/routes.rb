@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root to: 'static_pages#index'
 
   get 'login'     => 'static_pages#login'
+  get 'todo'      => 'static_pages#todo'
 
   namespace :api do
     #USERS
