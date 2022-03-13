@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 import Layout from './component/layout'
 import { safeCredentials, handleErrors } from './utils/fetchHelper';
-import $ from 'jquery';
 
 function Signup(){
 
