@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get 'login'     => 'static_pages#login'
   get 'todo'      => 'static_pages#todo'
+  get 'signup'    => 'static_pages#signup'
 
   namespace :api do
     #USERS

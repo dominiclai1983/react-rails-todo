@@ -10,4 +10,8 @@ class StaticPagesController < ApplicationController
   def todo
     render 'todo'
   end
+
+  def signup
+    redirect_to '/login'
+  end
 end

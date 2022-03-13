@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import Layout from './component/layout'
+import { safeCredentials, handleErrors } from './utils/fetchHelper';
 
-const Login = ({onLogin}) => {
+function Login(){
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -11,11 +12,46 @@ const Login = ({onLogin}) => {
     password
   }
 
+  const handleLogin = (login) => {
+    /*
+    var request = {
+      type: 'POST',
+      url: 'api/sessions',
+      headers: {
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+      },
+      data:{
+        user: login
+      },
+      success: function (response) {
+        console.log(response)
+      },
+      error: function (request, errorMsg) {
+        console.log(request, errorMsg);
+        console.log("error");
+      }
+    }
+    $.ajax(request);
+    */
+
+    fetch('api/sessions', safeCredentials({
+      method: 'POST',
+      body: JSON.stringify({
+        user: login
+      })
+    }))
+    .then(handleErrors)
+    .then(res => {
+      console.log(res);
+    })
+
+  }
+
   return (
     <>
       <Layout>
-        <h3>Login To Your Account</h3>
-          <form onSubmit={() => {onLogin(login)}}>
+        <h4>Login To Your Account</h4>
+          <form onSubmit={() => {handleLogin(login)}}>
             <div className="form-group">
               <label htmlFor="exampleInputEmail">Username</label>
               <input type="text" className="form-control" id="exampleUsername" placeholder="username" 
