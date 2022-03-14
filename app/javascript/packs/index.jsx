@@ -27,7 +27,7 @@ const Index = () => {
   return (
     <>
       <NavBar />
-      <h1 className="text-center">📝 Let React ToDO With Rails</h1>
+      <h1 className="text-center title-bar">📝 Let React ToDO With Rails</h1>
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Home />} />

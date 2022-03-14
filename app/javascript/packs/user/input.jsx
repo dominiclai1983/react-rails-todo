@@ -31,7 +31,7 @@ const Input = () =>{
           }}
           onSubmit={handleSubmit}
         />
-        <Button variant="warning" id="button-addon" onSubmit={handleSubmit}>
+        <Button variant="warning" id="button-addon" onClick={handleSubmit}>
           Add Task
         </Button>
       </InputGroup>

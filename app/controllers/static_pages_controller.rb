@@ -3,6 +3,10 @@ class StaticPagesController < ApplicationController
     render 'index'
   end
 
+  def signup
+    redirect_to '/login'
+  end
+
   def login
     redirect_to '/user'
   end
@@ -11,7 +15,5 @@ class StaticPagesController < ApplicationController
     render 'user'
   end
 
-  def signup
-    redirect_to '/login'
-  end
+
 end

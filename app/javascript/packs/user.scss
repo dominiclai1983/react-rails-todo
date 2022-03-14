@@ -1,3 +1,8 @@
+.top-icon{
+  color: rgba(75, 75, 75, 0.9) !important;
+}
+
+
 .container{
   max-width: 1250px;
 }
@@ -10,7 +15,7 @@
 
 a {
 	&:hover {
-		text-decoration: none;
+		text-decoration: none !important;
 	}
 }
 
@@ -25,4 +30,13 @@ a.kinda-link {
     color: #6c757d
     ;
 	}
+}
+
+h6 {
+  margin-top: 25px !important;
+  margin-bottom: 25px !important;
+}
+
+.listing{
+  width: 550px !important;
 }

@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from 'react'
 import ReactDOM from 'react-dom';
-import Input from './user/input';
-import LeftNav from './user/leftnav';
 import axios from 'axios';
+import LeftNav from './user/leftbar';
+import Input from './user/input';
 import NavBar from './component/navbar';
+import InlineEdit from './component/inline';
+import {Row, Col, Container, Form, CloseButton} from 'react-bootstrap';
 
 import './user.scss';
 
 export default function User(){
 
-  const [todo, setTodo] = useState([]);
+  const [todos, setTodo] = useState([]);
   const [username, setUsername] = useState("");
-  const [authenticated, setAuth] = useState(null);
+  const [authenticated, setAuth] = useState(false);
 
   const time = new Date();
 
@@ -21,35 +23,36 @@ export default function User(){
       console.log(response.data.authenticated);
       setUsername(response.data.username);
       setAuth(response.data.authenticated);
-      /*
+      
       if(!response.data.authenticated){
         window.location.href = "/";
       }
-      */
+      
     });
   }
 
   const loadAllToDo = (username) => {
     axios.get('api/users/${username}/tasks')
     .then(response => {
-      setTodo(response.data);
-      console.log(todo);
+      setTodo(response.data.tasks);
+      console.log(todos);
+      console.log(response.data.tasks)
     })
   }
 
   const loadActiveToDo = (username) => {
     axios.get('api/users/${username}/active')
     .then(response => {
-      setTodo(response.data);
-      console.log(todo);
+      setTodo(response.data.tasks);
+      console.log(todos);
     })
   }
 
   const loadCompletedToDo = (username) => {
     axios.get('api/users/${username}/completed')
     .then(response => {
-      setTodo(response.data);
-      console.log(todo);
+      setTodo(response.data.tasks);
+      console.log(todos);
     })
   }
 
@@ -71,61 +74,52 @@ export default function User(){
   },[username]);
 
    
-
   return (
     <>
-      <NavBar />
-      <div className="container">
-        <div className="row">
-          {/*Lefthand side*/}
-          <div className="col-3 mt-4 text-right">
-            <LeftNav username={username} onLogOut={handLogOut} />
-          </div>
+      <div className={authenticated? null : "d-none"}>
+        
+        <NavBar />
+        <Container>
+          <Row>
+            <Col xs={3} className="mt-4 text-right">
+              <LeftNav username={username} onLogOut={handLogOut} />
+            </Col>
+            <Col xs={9}>
+              <div className="right-side border">
+                <Container>
+                  <h3>Today is {time.toISOString().slice(0,10)}</h3>
+                  <Row>
+                    <Col xs={12}>
+                      <Input />
+                    </Col>
+                    <Col xs={12} className="border-bottom">
+                    &emsp;<a href={null} className="kinda-link" onClick={loadAllToDo}>All</a>&emsp;|&emsp;<a href={null} className="kinda-link" onClick={loadActiveToDo}>Active</a>&emsp;|&emsp;<a href={null} className="kinda-link" onClick={loadCompletedToDo}>Completed</a>
+                    </Col>
+                    <Col xs={12}>
 
+                      {todos.map(todo => {
+                        return (
+                          <div className="d-flex align-items-center my-2" key={todo.id}>
+                            <InlineEdit item={todo.item} />
+                            <Form>  
+                            <Form.Check 
+                              type="switch"
+                              id="custom-switch"
+                              checked={todo.completed}
+                            /></Form>
+                            <CloseButton />
+                          </div>)
+                      })}
 
-          <div className="col-9">
-          <div className="right-side border">
-
-
-          {/* place holder */}
-            <div className="container">
-            <div className="d-flex">
-            <h3>Today is {time.toISOString().slice(0,10)}</h3>
-            </div>
-              <div className="row">
-                <div className="col-12">
-                  <Input />
-                </div>
-                <div className="col-12 border-bottom">
-                &emsp;<a href={null} className="kinda-link" onClick={loadAllToDo}>All</a>&emsp;|&emsp;<a href={null} className="kinda-link" onClick={loadActiveToDo}>Active</a>&emsp;|&emsp;<a href={null} className="kinda-link" onClick={loadCompletedToDo}>Completed</a>
-                </div>
-                <div className="col-12">
-                  ToDo List
-                </div>
+                    </Col>
+                  </Row>
+                </Container>  
               </div>
-            </div>
-          </div>
+            </Col>
+          </Row>
+        </Container>
 
-          </div>
-        </div>
       </div>
-      {/* 
-      <h3>Welcome!</h3>
-      <div className="container">
-        <div className="row">
-          <div className="col-12">
-            Input Field
-          </div>
-          <div className="col-12">
-            All / Active / Completed
-          </div>
-          <div className="col-12">
-            ToDo List
-          </div>
-        </div>
-      </div>
-      */}
-
     </>
   )
 }

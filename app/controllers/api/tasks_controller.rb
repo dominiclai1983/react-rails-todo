@@ -55,6 +55,20 @@ module Api
       end
     end
 
+    def update_item
+      token = cookies.signed[:todolist_session_token]
+      session = Session.find_by(token: token)
+
+      if session
+        @task = Task.find_by(id: params[:id])
+
+        if @task and @task.update(task_params)
+          render 'api/tasks/update'
+        end
+      end
+    
+    end
+
     def destroy
       @task = Task.find_by(id: params[:id])
 

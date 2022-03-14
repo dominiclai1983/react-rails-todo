@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     get '/users/:username/active'    => 'tasks#index_by_current_user_with_active'
     get '/users/:username/completed' => 'tasks#index_by_current_user_with_completed'
     delete '/tasks/:id'              => 'tasks#destroy'
+    put 'tasks/:id/update'           => 'tasks#update_item'
     put 'tasks/:id/completed'        => 'tasks#mark_complete'
     put 'tasks/:id/active'           => 'tasks#mark_active'
     
