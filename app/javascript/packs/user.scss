@@ -2,6 +2,9 @@
   color: rgba(75, 75, 75, 0.9) !important;
 }
 
+body{
+  margin-bottom: 50px !important;
+}
 
 .container{
   max-width: 1250px;
@@ -39,4 +42,24 @@ h6 {
 
 .listing{
   width: 550px !important;
+}
+
+#render-list {
+  border: 0 !important;
+  color: #495057 !important;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  border-color: #ffc107 !important;
+  background-color: #ffc107 !important;
+}
+   
+/* footer */
+.news-icon i{
+  color: white;
+}
+
+a:hover{
+  text-decoration: none;
 }

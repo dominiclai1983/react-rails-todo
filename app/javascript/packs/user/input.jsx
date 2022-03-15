@@ -2,7 +2,9 @@ import React, {useState} from 'react'
 import { InputGroup, Button, FormControl } from 'react-bootstrap';
 import axios from 'axios';
 
-const Input = () =>{
+const Input = (props) =>{
+
+  const {onGetAllTodo, username} = props;
 
   const [item, setItem] = useState('');
   
@@ -15,6 +17,14 @@ const Input = () =>{
       console.log(response.data);
       setItem('');
     })
+
+    onGetAllTodo(username);
+  }
+
+  const handleSubmitByEnter = (event) => {
+    if(event.key === "Enter"){
+      handleSubmit();
+    }
   }
 
   return (
@@ -29,7 +39,7 @@ const Input = () =>{
             event.preventDefault();
             setItem(event.target.value);
           }}
-          onSubmit={handleSubmit}
+          onKeyDown={handleSubmitByEnter}
         />
         <Button variant="warning" id="button-addon" onClick={handleSubmit}>
           Add Task

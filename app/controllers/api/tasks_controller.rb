@@ -64,11 +64,14 @@ module Api
 
         if @task and @task.update(task_params)
           render 'api/tasks/update'
+        else
+          render json: { success: false }
         end
+      else
+        render json: { success: false }
       end
-    
     end
-
+    
     def destroy
       @task = Task.find_by(id: params[:id])
 
