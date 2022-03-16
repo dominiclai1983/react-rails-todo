@@ -24,12 +24,13 @@ const Input = (props) =>{
   const handleSubmitByEnter = (event) => {
     if(event.key === "Enter"){
       handleSubmit();
+      onGetAllTodo(username);
     }
   }
 
   return (
     <>
-      <InputGroup className="my-2">
+      <InputGroup className="my-1">
         <FormControl
           placeholder="What is in your mind?"
           aria-label="todo"

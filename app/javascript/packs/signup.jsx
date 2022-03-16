@@ -8,14 +8,6 @@ function Signup(){
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
 
-  /*
-  const newUser = {
-    username,
-    email,
-    password
-  }
-  */
-
   const handleSubmit = () => {
 
     const newUser = {

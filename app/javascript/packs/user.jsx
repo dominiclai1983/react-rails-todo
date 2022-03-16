@@ -103,16 +103,16 @@ export default function User(){
 
   }
 
-  const handleTodoStatus = (id, completed, username) => {
-    if(!completed){
+  const handleTodoStatus = (id, completed) => {
+    if(completed){
     axios.put(`api/tasks/${id}/completed`)
       .then(response => {
-        loadAllToDo(username);
+        console.log(response);
       })
     }else {
       axios.put(`api/tasks/${id}/active`)
       .then(response => {
-        loadAllToDo(username);
+        console.log(response);
       })
     }
   }
@@ -124,6 +124,12 @@ export default function User(){
   useEffect(() => {
     loadAllToDo(username);
   },[username]);
+
+  const Intro = () => {
+    return (
+      <h5 className="text-secondary">Let's Add Some Todo!</h5>
+    )
+  }
 
    
   return (
@@ -139,7 +145,7 @@ export default function User(){
               <Col xs={10} md={9}>
                 <div className="right-side border">
                   <Container>
-                    <h3>Today is {time.toISOString().slice(0,10)}</h3>
+                    <h3 className="pt-2">Today is {time.toLocaleDateString('en-US')}</h3>
                     <Row>
                       <Col xs={12}>
                         <Input username={username} onGetAllTodo={loadAllToDo} />
@@ -151,6 +157,7 @@ export default function User(){
                       {todos.reverse().map(todo => {
                         return <InlineEdit key={todo.id} todo={todo} username={username} onUpdate={updateTodo} onDelete={deleteTodo} onMarkCompleted={handleTodoStatus} />
                       })}
+                      {(todos.length === 0 )? <Intro /> : null}
                       </Col>
                     </Row>
                   </Container>  
