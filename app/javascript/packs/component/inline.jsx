@@ -1,12 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import FormControl from 'react-bootstrap/FormControl';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Form from 'react-bootstrap/Form';
-import axios from 'axios';
 
 const InlineEdit = (props) => {
 
-  const {todo, onUpdate, onDelete, onMarkCompleted, username} = props;
+  const {todo, onUpdate, onDelete, onMarkCompleted} = props;
 
   const [item, setItem] = useState(todo.item);
   const [completed, setCompleted] = useState(todo.completed);
@@ -17,7 +16,6 @@ const InlineEdit = (props) => {
     }
   }
 
-  /* div  */
 
   return (
 
@@ -53,7 +51,7 @@ const InlineEdit = (props) => {
       </Form>
 
       <div onClick={() => onDelete(todo.id)}>
-        <i className="fas fa-trash-alt"></i>
+        <span className="trash-can"><i className="fas fa-trash-alt"></i></span>
       </div>
     </div>
 
