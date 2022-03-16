@@ -10,12 +10,12 @@ import './index.scss';
 
 export const Home = () => (
   <Layout>
-    <h5>With An Account?</h5>
+    <h5 className="text-secondary">With An Account?</h5>
     <Link to='/login'>
-      <button type="button" className="btn btn-primary btn-lg btn-block">Sign in </button>
+      <button type="button" className="btn btn-warning btn-lg btn-block">Sign in </button>
     </Link>
     
-    <h5 className='mt-2'>Interested In?</h5>
+    <h5 className="mt-2 text-secondary">Interested In?</h5>
     <Link to="/signup"> 
     <button type="button" className="btn btn-secondary btn-lg btn-block">Sign Up With Email</button>
     </Link>
@@ -27,7 +27,7 @@ const Index = () => {
   return (
     <>
       <NavBar />
-      <h1 className="text-center title-bar">📝 Let React ToDO With Rails</h1>
+      <h1 className="text-center title-bar text-secondary"><span className="text-warning"><i class="fas fa-list"></i></span>{" <ToDo ... ... ... />"}</h1>
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Home />} />

@@ -30,7 +30,7 @@ function Login(){
   return (
     <>
       <Layout>
-        <h4>Login To Your Account</h4>
+        <h4 className='text-secondary'>Login To Your Account</h4>
           <form onSubmit={() => {handleLogin(login)}}>
             <div className="form-group">
               <label htmlFor="exampleInputEmail">Username</label>
@@ -48,7 +48,7 @@ function Login(){
                   setPassword(event.target.value);
                 }} />
             </div>
-          <button type="submit" className="btn btn-primary">Submit</button>
+          <button type="submit" className="btn btn-warning">Login</button>
           </form>
       </Layout>
     </>

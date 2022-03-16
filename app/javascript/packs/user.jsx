@@ -10,6 +10,13 @@ import { safeCredentials, handleErrors, checkStatus, json } from './utils/fetchH
 
 import './user.scss';
 
+export const AddToDo = () => {
+  return (
+    <>
+      <h5 className="text-secondary">Let's Add Some Todo!</h5>
+    </>
+  )
+}
 
 class User extends React.Component{
 
@@ -219,7 +226,7 @@ class User extends React.Component{
                         {todos.reverse().map(todo => {
                           return <InlineEdit key={todo.id} todo={todo} onUpdate={this.updateTodo} onDelete={this.deleteTodo} onMarkCompleted={this.handleTodoStatus} />
                         })}
-                        {(todos.length === 0 )? <h5 className="text-secondary">Let's Add Some Todo!</h5> : null}
+                        {(todos.length === 0 )? <AddToDo /> : null}
                         </Col>
                       </Row>
                     </Container>  

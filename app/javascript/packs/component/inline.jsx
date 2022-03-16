@@ -9,6 +9,7 @@ const InlineEdit = (props) => {
 
   const [item, setItem] = useState(todo.item);
   const [completed, setCompleted] = useState(todo.completed);
+  const [focused, setFocused] = useState(false);
 
   const handleSubmitByEnter = (event) => {
     if(event.key === "Enter"){
@@ -17,9 +18,11 @@ const InlineEdit = (props) => {
   }
 
 
+
   return (
 
     <div className="d-flex align-items-center">
+    {/* Todo items render in a editable input field*/}
       <InputGroup>
         <FormControl
           aria-label="todo"
@@ -30,7 +33,13 @@ const InlineEdit = (props) => {
             setItem(event.target.value);
             console.log(event.target.value);
           }}
-          onBlur={(event)=> onUpdate(todo.id, event.target.value)}
+          onBlur={(event)=> {
+              if(event.target.value === ''){
+                setItem(todo.item);
+              }else{
+                onUpdate(todo.id, event.target.value);
+              }}
+            }//when blur, then it would fire an update 
           onKeyDown={handleSubmitByEnter}
         />
       </InputGroup>

@@ -33,7 +33,7 @@ function Signup(){
   return (
     <>
       <Layout>
-        <h4>Create Your Account</h4>
+        <h4 className="text-secondary">Create Your Account</h4>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="newInputUserName">Username</label>
@@ -56,7 +56,7 @@ function Signup(){
             setPassword(event.target.value)}} />
           <small>At latest EIGHT characters</small>
           </div>
-        <button type="submit" className="btn btn-primary" >Submit</button>
+        <button type="submit" className="btn btn-warning" >Submit</button>
         </form>
       </Layout>
     </>
