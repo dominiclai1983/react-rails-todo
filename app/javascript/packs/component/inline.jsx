@@ -5,19 +5,16 @@ import Form from 'react-bootstrap/Form';
 
 const InlineEdit = (props) => {
 
-  const {todo, onUpdate, onDelete, onMarkCompleted} = props;
+  const {todo, onUpdate, onMarkCompleted, onGetAllTodo, onDelete, onSwitchButton, username, mode} = props;
 
   const [item, setItem] = useState(todo.item);
   const [completed, setCompleted] = useState(todo.completed);
-  const [focused, setFocused] = useState(false);
 
   const handleSubmitByEnter = (event) => {
     if(event.key === "Enter"){
       event.target.blur();
     }
   }
-
-
 
   return (
 
@@ -43,7 +40,7 @@ const InlineEdit = (props) => {
           onKeyDown={handleSubmitByEnter}
         />
       </InputGroup>
-
+      {/*Switch Button*/}
       <Form>
         <Form.Check 
           type="switch"
@@ -52,19 +49,24 @@ const InlineEdit = (props) => {
           checked={completed}
           onChange={event => {
             setCompleted(!completed);
-            console.log(event.target.checked);
+            onSwitchButton(username, event.target.checked, mode);
             onMarkCompleted(todo.id, event.target.checked);
           }}
           className="mx-2"
         />
       </Form>
 
-      <div onClick={() => onDelete(todo.id)}>
+      <div onClick={() => {
+        onDelete(todo.id);
+        onGetAllTodo(username);
+        }}>
         <span className="trash-can"><i className="fas fa-trash-alt"></i></span>
       </div>
+
     </div>
 
   );
+        
 };
 
 export default InlineEdit;

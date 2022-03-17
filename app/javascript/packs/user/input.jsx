@@ -18,7 +18,6 @@ const Input = (props) =>{
       setItem('');
     })
 
-    onGetAllTodo(username);
   }
 
   const handleSubmitByEnter = (event) => {
@@ -42,7 +41,10 @@ const Input = (props) =>{
           }}
           onKeyDown={handleSubmitByEnter}
         />
-        <Button variant="warning" id="button-addon" onClick={handleSubmit}>
+        <Button variant="warning" id="button-addon" onClick={() => {
+            handleSubmit();
+            onGetAllTodo(username)}
+          }>
           Add Task
         </Button>
       </InputGroup>

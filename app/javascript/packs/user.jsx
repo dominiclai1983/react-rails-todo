@@ -1,36 +1,29 @@
-import React, {useEffect, useState, Component} from 'react'
+import React, {Component} from 'react'
 import ReactDOM from 'react-dom';
 import LeftNav from './user/leftbar';
 import Input from './user/input';
 import NavBar from './component/navbar';
 import InlineEdit from './component/inline';
-
+import AddToDo from './component/addtodo';
 import { Row, Col, Container} from 'react-bootstrap';
 import { safeCredentials, handleErrors, checkStatus, json } from './utils/fetchHelper';
 
 import './user.scss';
 
-export const AddToDo = () => {
-  return (
-    <>
-      <h5 className="text-secondary">Let's Add Some Todo!</h5>
-    </>
-  )
-}
-
-class User extends React.Component{
+class User extends Component{
 
   constructor(props){
     super(props);
     this.state ={
       todos: [],
       username: "",
-      authenticated: false
+      authenticated: false,
+      mode: ""
     }
 
-    this.loadAllToDo = this.loadAllToDo.bind(this);
-    this.loadActiveToDo = this.loadActiveToDo.bind(this);
-    this.loadCompletedToDo = this.loadCompletedToDo.bind(this);
+    this.callAllTodo = this.callAllTodo.bind(this);
+    this.callActiveTodo = this.callActiveTodo.bind(this);
+    this.callCompletedTodo = this.callCompletedTodo.bind(this);
     this.updateTodo = this.updateTodo.bind(this);
     this.deleteTodo = this.deleteTodo.bind(this);
     this.handleTodoStatus = this.handleTodoStatus.bind(this);
@@ -38,88 +31,83 @@ class User extends React.Component{
   }
 
   componentDidMount(){
-
     this.checkLogin();
-
-    this.loadAllToDo(this.username);
-
+    this.callAllTodo(this.username);
   }
 
-
-  //check login method. if not login, the user will be redirect to front page
-  checkLogin(){
-
-      fetch('api/authenticated')
-      .then(checkStatus)
-      .then(json)
-      .then(data => {
-        if(data.authenticated){
-          this.setState({
-            username: data.username,
-            authenticated: data.authenticated
-          }, () => {
-            console.log(this.state.username);
-          })
-        }else{
-          document.location.href="/";
-        }
-      })
-      .catch(error => {
-        console.log(error);
-      });
-
-  }
-  
-  //load all todo method
-  loadAllToDo(username){
-
-
+  //supporting method to load all todo
+  callAllTodo = (username) => {
     fetch(`api/users/${username}/tasks`)
     .then(checkStatus)
     .then(json)
     .then(data => {
       this.setState({
-        todos: data.tasks
+        todos: data.tasks,
+        mode: "all"
       })
     })
     .catch(error => {
       console.log(error);
     });
-
   }
 
-  //load all todo that is with status active 
-  loadActiveToDo(username){
-
-    console.log(username);
+  //supporting method to load active todo
+  callActiveTodo = (username) => {
 
     fetch(`api/users/${username}/active`)
     .then(checkStatus)
     .then(json)
     .then(data => {
       this.setState({
-        todos: data.tasks
+        todos: data.tasks,
+        mode: "active"
       })
       console.log(data.tasks);
     })
-
-
+    .catch(error => {
+      console.log(error);
+    });
   }
 
-  //load all todo that is with status completed 
-  loadCompletedToDo = (username) => {
+  //supporting method to load completed todo
+  callCompletedTodo = (username) => {
 
     fetch(`api/users/${username}/completed`)
     .then(checkStatus)
     .then(json)
     .then(data => {
       this.setState({
-        todos: data.tasks
+        todos: data.tasks,
+        mode: "completed"
       })
     })
     .catch(error => {
       console.log(error);
     });
+  }
+
+  //supporting method to check login status.
+  checkLogin = () => {
+
+    fetch('api/authenticated')
+    .then(checkStatus)
+    .then(json)
+    .then(data => {
+      if(data.authenticated){
+        this.setState({
+          username: data.username,
+          authenticated: data.authenticated
+        }, () => {
+          console.log(this.state.username);//ensure the username will be updated, as this states will be used immediately at other place
+        })
+      }else{
+        document.location.href="/";
+      }
+    })
+    .catch(error => {
+      console.log(error);
+    });
+
   }
 
   handLogOut = () => {
@@ -167,13 +155,25 @@ class User extends React.Component{
       console.log(res);
     })
 
-    this.loadAllToDo(username);
+  }
+
+  handleRenderBySwitchButton = (username, completed, mode) => {
+
+    if(mode === "all"){
+      return;
+    }
+
+    if(completed && mode === "active"){
+      this.callActiveTodo(username);
+    }else if(!completed && mode === "completed"){
+      this.callCompletedTodo(username);
+    }
 
   }
 
   handleTodoStatus = (id, completed) => {
-    if(completed){
 
+    if(completed){
       fetch(`api/tasks/${id}/completed`, safeCredentials({
         method: 'PUT'
       }))
@@ -181,10 +181,7 @@ class User extends React.Component{
       .then(res => {
         console.log(res);
       })
-
     }else {
-
-
       fetch(`api/tasks/${id}/active`, safeCredentials({
         method: 'PUT'
       }))
@@ -192,14 +189,14 @@ class User extends React.Component{
       .then(res => {
         console.log(res);
       })
-    }
+      }
   }
 
   render(){
 
     const time = new Date();
 
-    const {authenticated, username, todos} = this.state;
+    const {authenticated, username, todos, mode} = this.state;
    
     return (
       <>
@@ -214,17 +211,19 @@ class User extends React.Component{
                 <Col xs={10} md={9}>
                   <div className="right-side border">
                     <Container>
+                    <div className="d-flex align-items-center">
                       <h3 className="pt-2 trash-can">Today is {time.toLocaleDateString('en-US')}</h3>
+                    </div>
                       <Row>
                         <Col xs={12}>
-                          <Input username={username} onGetAllTodo={this.loadAllToDo} />
+                          <Input username={username} onGetAllTodo={this.callAllTodo} />
                         </Col>
                         <Col xs={12} className="border-bottom mt-1 mb-1 pb-2">
-                        &emsp;<a href={null} className="kinda-link" onClick={() => {this.loadAllToDo(username)}}>All</a>&emsp;|&emsp;<a href={null} className="kinda-link" onClick={() => {this.loadActiveToDo(username)}} >Active</a>&emsp;|&emsp;<a href={null} className="kinda-link" onClick={() => {this.loadCompletedToDo(username)}} >Completed</a>
+                        &emsp;<a href={null} className="kinda-link" onClick={() => {this.callAllTodo(username)}}>All</a>&emsp;|&emsp;<a href={null} className="kinda-link" onClick={() => {this.callActiveTodo(username)}} >Active</a>&emsp;|&emsp;<a href={null} className="kinda-link" onClick={() => {this.callCompletedTodo(username)}} >Completed</a>
                         </Col>
                         <Col xs={12}>
                         {todos.reverse().map(todo => {
-                          return <InlineEdit key={todo.id} todo={todo} onUpdate={this.updateTodo} onDelete={this.deleteTodo} onMarkCompleted={this.handleTodoStatus} />
+                          return <InlineEdit key={todo.id} todo={todo} mode={mode} onDelete={this.deleteTodo} onUpdate={this.updateTodo} onGetAllTodo={this.callAllTodo} onMarkCompleted={this.handleTodoStatus} onSwitchButton={this.handleRenderBySwitchButton} />
                         })}
                         {(todos.length === 0 )? <AddToDo /> : null}
                         </Col>

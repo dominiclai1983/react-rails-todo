@@ -27,7 +27,7 @@ const Index = () => {
   return (
     <>
       <NavBar />
-      <h1 className="text-center title-bar text-secondary"><span className="text-warning"><i class="fas fa-list"></i></span>{" <ToDo ... ... ... />"}</h1>
+      <h1 className="text-center title-bar text-secondary"><span className="text-warning"><i class="fas fa-list"></i></span>{"    <ToDo ... ... ... />"}</h1>
       <BrowserRouter>
         <Routes>
           <Route exact path="/" element={<Home />} />
