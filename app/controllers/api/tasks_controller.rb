@@ -6,7 +6,7 @@ module Api
       session = Session.find_by(token: token)
 
       if session
-        @tasks = session.user.tasks
+        @tasks = session.user.tasks.order(created_at: :desc) #order the task by creation date
         render 'api/tasks/index' # can be omitted
       else
         render json: { tasks: [] }

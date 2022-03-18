@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom';
-import LeftNav from './user/leftbar';
+import LeftNav from './leftbar';
 import Input from './user/input';
 import NavBar from './component/navbar';
 import InlineEdit from './component/inline';
@@ -208,8 +208,8 @@ class User extends Component{
                 <Col xs={2} md={3} className="mt-4 text-right">
                   <LeftNav username={username} onLogOut={this.handLogOut} />
                 </Col>
-                <Col xs={10} md={9}>
-                  <div className="right-side border">
+                <Col xs={10} md={9}> {/* marker A*/}
+                  <div className="right-side border">{/* remember to include this*/}
                     <Container>
                     <div className="d-flex align-items-center">
                       <h3 className="pt-2 trash-can">Today is {time.toLocaleDateString('en-US')}</h3>
@@ -219,10 +219,13 @@ class User extends Component{
                           <Input username={username} onGetAllTodo={this.callAllTodo} />
                         </Col>
                         <Col xs={12} className="border-bottom mt-1 mb-1 pb-2">
-                        &emsp;<a href={null} className="kinda-link" onClick={() => {this.callAllTodo(username)}}>All</a>&emsp;|&emsp;<a href={null} className="kinda-link" onClick={() => {this.callActiveTodo(username)}} >Active</a>&emsp;|&emsp;<a href={null} className="kinda-link" onClick={() => {this.callCompletedTodo(username)}} >Completed</a>
+                        {/* &emsp;<a href={null} className="kinda-link" onClick={() => {this.callAllTodo(username)}}></a> */}
+                          <span className={`badge badge-pill ${(mode === 'all')? "badge-warning" : "badge-secondary"}`} onClick={() => {this.callAllTodo(username)}} >All</span>{" "}|{" "}
+                          <span className={`badge badge-pill ${(mode === 'active')? "badge-warning" : "badge-secondary"}`} onClick={() => {this.callActiveTodo(username)}} >Active</span>{" "}|{" "}
+                          <span className={`badge badge-pill ${(mode === 'completed')? "badge-warning" : "badge-secondary"}`} onClick={() => {this.callCompletedTodo(username)}} >Completed</span> 
                         </Col>
                         <Col xs={12}>
-                        {todos.reverse().map(todo => {
+                        {todos.map(todo => {
                           return <InlineEdit key={todo.id} todo={todo} mode={mode} onDelete={this.deleteTodo} onUpdate={this.updateTodo} onGetAllTodo={this.callAllTodo} onMarkCompleted={this.handleTodoStatus} onSwitchButton={this.handleRenderBySwitchButton} />
                         })}
                         {(todos.length === 0 )? <AddToDo /> : null}

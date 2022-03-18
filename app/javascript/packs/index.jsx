@@ -8,6 +8,23 @@ import Signup from './signup';
 
 import './index.scss';
 
+const Index = () => {
+
+  return (
+    <>
+      <NavBar />
+      <h1 className="text-center title-bar text-secondary"><span className="text-warning"><i className="fas fa-list"></i></span>{"    <ToDo ... ... ... />"}</h1>
+      <BrowserRouter>
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+      </BrowserRouter>
+    </>
+  );
+}
+
 export const Home = () => (
   <Layout>
     <h5 className="text-secondary">With An Account?</h5>
@@ -21,23 +38,6 @@ export const Home = () => (
     </Link>
   </Layout>
 )
-
-const Index = () => {
-
-  return (
-    <>
-      <NavBar />
-      <h1 className="text-center title-bar text-secondary"><span className="text-warning"><i class="fas fa-list"></i></span>{"    <ToDo ... ... ... />"}</h1>
-      <BrowserRouter>
-        <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-        </Routes>
-      </BrowserRouter>
-    </>
-  );
-}
 
 export default Index;
 
