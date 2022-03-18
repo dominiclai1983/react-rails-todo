@@ -15,5 +15,8 @@ class StaticPagesController < ApplicationController
     render 'user'
   end
 
+  def account
+    render 'account'
+  end
 
 end

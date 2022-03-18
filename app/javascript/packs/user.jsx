@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom';
-import LeftNav from './leftbar';
+import LeftNav from './component/leftbar';
 import Input from './user/input';
 import NavBar from './component/navbar';
 import InlineEdit from './component/inline';
@@ -218,7 +218,7 @@ class User extends Component{
                         <Col xs={12}>
                           <Input username={username} onGetAllTodo={this.callAllTodo} />
                         </Col>
-                        <Col xs={12} className="border-bottom mt-1 mb-1 pb-2">
+                        <Col xs={12} className="border-bottom mt-1 mb-1 pb-2 text-secondary">
                         {/* &emsp;<a href={null} className="kinda-link" onClick={() => {this.callAllTodo(username)}}></a> */}
                           <span className={`badge badge-pill ${(mode === 'all')? "badge-warning" : "badge-secondary"}`} onClick={() => {this.callAllTodo(username)}} >All</span>{" "}|{" "}
                           <span className={`badge badge-pill ${(mode === 'active')? "badge-warning" : "badge-secondary"}`} onClick={() => {this.callActiveTodo(username)}} >Active</span>{" "}|{" "}

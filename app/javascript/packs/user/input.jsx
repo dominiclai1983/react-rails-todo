@@ -39,6 +39,10 @@ const Input = (props) =>{
             event.preventDefault();
             setItem(event.target.value);
           }}
+          onBlur={event => {
+            setItem("");
+            event.target.blur();
+          }}
           onKeyDown={handleSubmitByEnter}
         />
         <Button variant="warning" id="button-addon" onClick={() => {

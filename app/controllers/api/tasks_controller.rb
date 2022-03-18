@@ -18,7 +18,7 @@ module Api
       session = Session.find_by(token: token)
 
       if session
-        @tasks = session.user.tasks.where(completed: false)
+        @tasks = session.user.tasks.where(completed: false).order(created_at: :desc)
         render 'api/tasks/index' # can be omitted
       else
         render json: { tasks: [] }
@@ -30,7 +30,7 @@ module Api
       session = Session.find_by(token: token)
 
       if session
-        @tasks = session.user.tasks.where(completed: true)
+        @tasks = session.user.tasks.where(completed: true).order(created_at: :desc)
         render 'api/tasks/index' # can be omitted
       else
         render json: { tasks: [] }

@@ -55,7 +55,7 @@ const InlineEdit = (props) => {
           className="mx-2"
         />
       </Form>
-
+      {/*Trash Button*/}
       <div onClick={() => {
         onDelete(todo.id);
         onGetAllTodo(username);
