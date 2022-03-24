@@ -5,7 +5,9 @@ import Input from './user/input';
 import NavBar from './component/navbar';
 import InlineEdit from './component/inline';
 import AddToDo from './component/addtodo';
-import { Row, Col, Container} from 'react-bootstrap';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
 import { safeCredentials, handleErrors, checkStatus, json } from './utils/fetchHelper';
 
 import './user.scss';
@@ -44,6 +46,8 @@ class User extends Component{
       this.setState({
         todos: data.tasks,
         mode: "all"
+      }, () => {
+        console.log(this.state.todos);
       })
     })
     .catch(error => {
@@ -61,8 +65,9 @@ class User extends Component{
       this.setState({
         todos: data.tasks,
         mode: "active"
+      }, () => {
+        console.log(this.state.todos);
       })
-      console.log(data.tasks);
     })
     .catch(error => {
       console.log(error);
@@ -79,6 +84,8 @@ class User extends Component{
       this.setState({
         todos: data.tasks,
         mode: "completed"
+      }, () => {
+        console.log(this.state.todos);
       })
     })
     .catch(error => {

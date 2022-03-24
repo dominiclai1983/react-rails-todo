@@ -5,9 +5,18 @@ module Api
       if @user.save
         render 'api/users/create'
       else
-        render json: {
-          success: false
-        }
+        @user = User.find_by(username: params[:username])
+        if @user
+          render json: {
+            success: false,
+            error: "*Username already exists"
+          }
+        else
+          render json: {
+            success: false,
+            error: "*Email already exists"
+          }
+        end
       end
     end
 

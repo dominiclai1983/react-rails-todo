@@ -1,6 +1,11 @@
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom';
 import LeftNavAccount from './component/leftbaraccount';
+import NavBar from './component/navbar';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Container from 'react-bootstrap/Container';
+import { safeCredentials, handleErrors, checkStatus, json } from './utils/fetchHelper';
 
 class Account extends Component{
 
@@ -55,11 +60,26 @@ class Account extends Component{
 
   render(){
 
+    const {username, authenticated} = this.state;
+
     return(
       <>
-        <LeftNavAccount username={username} onLogOut={handLogOut} />
+        <div className={authenticated? null : "d-none"}>
+        <NavBar />
+          <Container>
+            <Row>
+              <Col xs={2} md={3} className="mt-4 text-right">
+                <LeftNavAccount username={username} onLogOut={this.handLogOut} />
+              </Col>
+              <Col xs={10} md={9}> 
+                <div className="right-side border">
+                  Your account
+                </div>
+              </Col>
+            </Row>
+          </Container>
 
-
+        </div>
       </>
     )
   }
